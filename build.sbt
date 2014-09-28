@@ -14,6 +14,6 @@ libraryDependencies += "joda-time" % "joda-time" % "2.2"
 
 libraryDependencies += "javax.servlet" % "servlet-api" % "2.4"
 
-libraryDependencies += "org.apache.commons" % "commons-io" % "1.3.2"
+libraryDependencies += "com.google.guava" % "guava" % "17.0"
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))

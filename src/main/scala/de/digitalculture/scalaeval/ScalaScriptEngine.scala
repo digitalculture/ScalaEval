@@ -1,12 +1,12 @@
 package de.digitalculture.scalaeval
 
-import java.io.{Reader, StringWriter}
+import java.io.{ Reader, StringWriter }
 import java.util.Map.Entry
-import javax.script.{AbstractScriptEngine, Bindings, ScriptContext, ScriptEngineFactory, ScriptException, SimpleBindings}
-
-import org.apache.commons.io.IOUtils
-
+import javax.script.{ AbstractScriptEngine, Bindings, ScriptContext, ScriptEngineFactory, ScriptException, SimpleBindings }
 import scala.util.control.NonFatal
+import com.google.common.base.Charsets
+import com.google.common.io.CharStreams
+import java.io.InputStreamReader
 
 class ScalaScriptEngine extends AbstractScriptEngine {
 
@@ -24,9 +24,9 @@ class ScalaScriptEngine extends AbstractScriptEngine {
   @throws[ScriptException]("if the script emits an error")
   @throws[NullPointerException]("if an argument value is null")
   override def eval(reader: Reader, context: ScriptContext): Object = {
-    val writer = new StringWriter
-    IOUtils.copy(reader, writer)
-    eval(writer.toString, context)
+    val string = CharStreams.toString(reader)
+
+    eval(string, context)
   }
 
   //  @throws[ScriptException]("if the script emits an error")
@@ -50,7 +50,7 @@ class ScalaScriptEngine extends AbstractScriptEngine {
     val tb = runtimeMirror(this.getClass.getClassLoader).mkToolBox()
     val bindEntries = bindings.entrySet.toArray(Array.empty[Entry[String, Object]])
     val tree = tb.parse(script)
-    println(showRaw(tree))
+    //println(showRaw(tree))
     try {
       val fun = tb.compile(tree)
       val any = fun()
