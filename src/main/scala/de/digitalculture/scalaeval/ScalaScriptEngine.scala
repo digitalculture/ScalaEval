@@ -6,7 +6,7 @@ import javax.script.{ Bindings, SimpleBindings, ScriptContext, ScriptEngineFacto
 import scala.collection.immutable.HashMap
 import org.apache.commons.io.IOUtils
 
-class MercatoScriptEngine extends AbstractScriptEngine {
+class ScalaScriptEngine extends AbstractScriptEngine {
 
   var bindings = new SimpleBindings
 
@@ -45,6 +45,7 @@ class MercatoScriptEngine extends AbstractScriptEngine {
   override def eval(script: String, context: ScriptContext): Object = {
     import scala.reflect.runtime.universe._
     import scala.tools.reflect.ToolBox
+    import scala.tools.reflect.ToolBox
     val tb = runtimeMirror(this.getClass.getClassLoader).mkToolBox()
     val bindEntries = bindings.entrySet.toArray(Array.empty[Entry[String, Object]])
     val tree = tb.parse(script)
@@ -80,6 +81,6 @@ class MercatoScriptEngine extends AbstractScriptEngine {
     }
   }
 
-  override def getFactory: ScriptEngineFactory = MercatoScriptengineFactory
+  override def getFactory: ScriptEngineFactory = ScalaScriptEngineFactory
 
 }

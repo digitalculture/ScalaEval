@@ -4,9 +4,9 @@ import javax.script.ScriptEngineFactory
 import scala.collection.JavaConversions._
 import scala.collection.mutable.Buffer
 
-object MercatoScriptengineFactory extends ScriptEngineFactory {
+object ScalaScriptEngineFactory extends ScriptEngineFactory {
 
-  private val ENGINE_NAME = "Mercato Script Engine Factory";
+  private val ENGINE_NAME = "Scala Script Engine Factory";
 
   private val ENGINE_VERSION = "0.1";
 
@@ -43,6 +43,6 @@ object MercatoScriptengineFactory extends ScriptEngineFactory {
 
   override def getProgram(statements: String*) = statements.mkString("\n")
 
-  override def getScriptEngine = new MercatoScriptEngine
+  override def getScriptEngine = new ScalaScriptEngine
 
 }
