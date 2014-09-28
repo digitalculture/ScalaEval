@@ -1,9 +1,8 @@
 package de.digitalculture.scalaeval;
 
+import javax.script.ScriptEngine;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.script.ScriptEngine;
 
 public class ScalaScriptEngineFactory implements
 		javax.script.ScriptEngineFactory {
@@ -30,7 +29,7 @@ public class ScalaScriptEngineFactory implements
 
 	@Override
 	public List<String> getNames() {
-		return asList("scala");
+		return asList("scala2");
 	}
 
 	@Override

@@ -1,10 +1,12 @@
 package de.digitalculture.scalaeval
 
-import java.io.{ Reader, File, StringWriter }
+import java.io.{Reader, StringWriter}
 import java.util.Map.Entry
-import javax.script.{ Bindings, SimpleBindings, ScriptContext, ScriptEngineFactory, AbstractScriptEngine, ScriptException }
-import scala.collection.immutable.HashMap
+import javax.script.{AbstractScriptEngine, Bindings, ScriptContext, ScriptEngineFactory, ScriptException, SimpleBindings}
+
 import org.apache.commons.io.IOUtils
+
+import scala.util.control.NonFatal
 
 class ScalaScriptEngine extends AbstractScriptEngine {
 
@@ -45,14 +47,18 @@ class ScalaScriptEngine extends AbstractScriptEngine {
   override def eval(script: String, context: ScriptContext): Object = {
     import scala.reflect.runtime.universe._
     import scala.tools.reflect.ToolBox
-    import scala.tools.reflect.ToolBox
     val tb = runtimeMirror(this.getClass.getClassLoader).mkToolBox()
     val bindEntries = bindings.entrySet.toArray(Array.empty[Entry[String, Object]])
     val tree = tb.parse(script)
     println(showRaw(tree))
-    val fun = tb.compile(tree)
-    val any = fun()
-    toJavaType(any)
+    try {
+      val fun = tb.compile(tree)
+      val any = fun()
+      toJavaType(any)
+    } catch {
+      case NonFatal(e) =>
+        throw new ScriptException(s"Failed to execute script.\nScript:\n$script\n\nMessage: ${e.getMessage}", "", 0)
+    }
   }
 
   def toJavaType(scalaType: Any): AnyRef = {
