@@ -81,6 +81,6 @@ class ScalaScriptEngine extends AbstractScriptEngine {
     }
   }
 
-  override def getFactory: ScriptEngineFactory = ScalaScriptEngineFactory
+  override def getFactory: ScriptEngineFactory = new de.digitalculture.scalaeval.ScalaScriptEngineFactory()
 
 }
