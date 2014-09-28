@@ -45,7 +45,6 @@ class MercatoScriptEngine extends AbstractScriptEngine {
   override def eval(script: String, context: ScriptContext): Object = {
     import scala.reflect.runtime.universe._
     import scala.tools.reflect.ToolBox
-    import com.busintel.scalaeval.Finder._
     val tb = runtimeMirror(this.getClass.getClassLoader).mkToolBox()
     val bindEntries = bindings.entrySet.toArray(Array.empty[Entry[String, Object]])
     val tree = tb.parse(script)
@@ -74,7 +73,7 @@ class MercatoScriptEngine extends AbstractScriptEngine {
     import scala.collection.JavaConverters._
     traversable match {
       case seq: Seq[Any] => seq.asJava
-      case map: Map[Any, Any] => map.asJava
+      case map: Map[_, _] => map.asJava
       case set: Set[Any] => set.asJava
       case it: Iterable[Any] => it.asJava
       case a => a
