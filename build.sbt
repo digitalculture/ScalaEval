@@ -1,4 +1,4 @@
-organization := "com.busintel.trilith_mercato"
+organization := "de.digitalculture"
 
 name := "scalaeval"
 
@@ -13,3 +13,5 @@ libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.6.4"
 libraryDependencies += "joda-time" % "joda-time" % "2.2"
 
 libraryDependencies += "javax.servlet" % "servlet-api" % "2.4"
+
+libraryDependencies += "org.apache.commons" % "commons-io" % "1.3.2"
